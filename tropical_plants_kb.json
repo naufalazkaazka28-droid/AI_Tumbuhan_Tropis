@@ -1,0 +1,741 @@
+{
+  "meta": {
+    "name": "Basis pengetahuan tumbuhan tropis",
+    "version": "1.0",
+    "catatan": "Edit file ini untuk menambah tumbuhan, aturan, atau pesan. Server memuat ulang otomatis saat file berubah.",
+    "sources": [
+      {
+        "title": "10+ Tumbuhan Hutan Hujan Tropis Indonesia dan Ciri-Ciri Khasnya",
+        "url": "https://tekniksipil.id/10-tumbuhan-hutan-hujan-tropis-indonesia-dan-ciri/",
+        "note": "Artikel menyebut contoh tumbuhan secara tersebar. Profil berikut diringkas dan dilengkapi untuk format basis pengetahuan chatbot; beberapa nama merujuk pada genus atau tanaman budidaya, bukan satu spesies hutan asli."
+      }
+    ]
+  },
+  "settings": {
+    "min_confidence": 0.5,
+    "handoff_after_failures": 3,
+    "domain_min_score": 1,
+    "fuzzy_cutoff": 0.84,
+    "max_input_chars": 500,
+    "greeting_max_words": 4,
+    "session_ttl_seconds": 3600,
+    "max_sessions": 5000,
+    "rate_limit_per_minute": 20
+  },
+  "stopwords": ["yang","dan","di","ke","dari","untuk","dengan","adalah","atau","pada","ini","itu","saya","aku","ada","apa","apakah","bagaimana","tolong","dong","ya","kah","mau","tahu","kasih","sebutkan","jelaskan","bisa","dapat","tentang","soal","si","kalau","lalu","terus","cara","kenapa","mengapa","berapa","kapan","dimana","mana","siapa","sih","deh","nih","lah","saja","nya","agar","supaya","sebuah","juga","sudah","dalam","lagi","pakai","karena"],
+  "extra_vocab": ["hari","halo","hai","hello","terimakasih","makasih","admin","operator","petugas","manusia","bot","chatbot","kembali","bantuan","daftar","bandingkan","perbedaan","tumbuhan","tanaman"],
+  "slang": {
+    "gmn": "bagaimana", "bgmn": "bagaimana", "gimana": "bagaimana", "yg": "yang", "brp": "berapa",
+    "knp": "kenapa", "tdk": "tidak", "dgn": "dengan", "utk": "untuk", "krn": "karena",
+    "sy": "saya", "udh": "sudah", "bs": "bisa", "gk": "tidak", "ga": "tidak", "gak": "tidak",
+    "nggak": "tidak", "jg": "juga", "kalo": "kalau", "ato": "atau", "tnm": "tanaman",
+    "tmbuhan": "tumbuhan", "pake": "pakai", "lg": "lagi"
+  },
+  "domain": {
+    "terms": ["tanam","tumbuh","daun","akar","batang","bunga","buah","biji","pohon","pupuk","siram","hama","kebun","bibit","semai","benih","herbal","rempah","sayur","kompos","gulma","stek","panen","spesies","famili","botani","tropis","hutan","epifit","parasit","rimpang","kuncup","tunas","polinasi","jamu","palem","anggrek","liana","humus","mdpl","pelepah","tandan"],
+    "offtopic_phrases": ["akar kuadrat","akar masalah","bunga bank","suku bunga","bunga pinjaman","batang rokok","pohon keluarga","pohon biner","pohon keputusan","buah dada","tumbuh kembang anak","daun telinga"],
+    "out_of_scope_plants": ["tulip","lavender","sakura","maple","gandum","persik","kurma","pohon ek"]
+  },
+  "compare_keywords": ["bandingkan","perbandingan","perbedaan","beda","versus","vs","dibanding","dibandingkan","lebih baik mana"],
+  "human_request": {
+    "patterns": [
+      "\\b(bicara|berbicara|hubungi|menghubungi|chat|bertemu|minta|ingin|mau|sambungkan|sambungin)\\b.*\\b(admin|manusia|petugas|operator|cs|customer service)\\b",
+      "^(admin|operator|petugas|manusia|human)$",
+      "\\b(agen manusia|human agent)\\b"
+    ]
+  },
+  "sensitive_pattern": "\\b(hamil|menyusui|bayi|balita|anak kecil|diabetes|hipertensi|penyakit|sakit|dosis|resep dokter|kanker|lambung)\\b",
+  "intents": {
+    "manfaat":   {"keywords": ["manfaat","khasiat","kegunaan","guna","fungsi","dipakai","dimanfaatkan","obat","dimakan","diolah"], "field": "manfaat",   "label": "Manfaat", "hint": "manfaat"},
+    "perawatan": {"keywords": ["rawat","perawatan","budidaya","menanam","cara tanam","siram","pupuk","pangkas","panen","perbanyak","bibit"], "field": "perawatan", "label": "Cara tanam dan perawatan", "hint": "perawatan"},
+    "ciri":      {"keywords": ["ciri","morfologi","bentuk","tampilan","deskripsi","seperti apa","tinggi","warna"], "field": "ciri", "label": "Ciri-ciri", "hint": "ciri-ciri"},
+    "habitat":   {"keywords": ["habitat","tumbuh di","iklim","suhu","asal","tempat tumbuh","cocok di","dataran","tinggal"], "field": "habitat", "label": "Habitat", "hint": "habitat"},
+    "keamanan":  {"keywords": ["racun","beracun","toksik","bahaya","aman","efek samping","berbahaya","alergi"], "field": "keamanan", "label": "Keamanan", "hint": "keamanan"},
+    "ilmiah":    {"keywords": ["ilmiah","latin","binomial"], "field": "ilmiah", "label": "Nama ilmiah", "hint": "nama ilmiah"},
+    "famili":    {"keywords": ["famili","keluarga","klasifikasi","taksonomi"], "field": "famili", "label": "Famili", "hint": "famili"}
+  },
+  "messages": {
+    "answer": "{nama} ({ilmiah}) - {label}:\n{value}",
+    "profile": "{nama} ({ilmiah}), famili {famili}.\nCiri: {ciri}\nHabitat: {habitat}\nManfaat: {manfaat}",
+    "compare_item": "{nama} ({ilmiah})\n{lines}",
+    "suggest": "Anda juga bisa menanyakan: {opsi}.",
+    "herbal_note": "Catatan: informasi ini bersifat edukatif dan bukan pengganti saran tenaga kesehatan.",
+    "sensitive_note": "Untuk kondisi khusus (misalnya hamil, menyusui, anak kecil, atau penyakit tertentu), konsultasikan dengan dokter sebelum mengonsumsi bahan herbal.",
+    "offtopic": "Maaf, saya hanya bisa membantu seputar tumbuhan tropis (jenis, ciri, habitat, manfaat, budidaya, dan masalah tanaman). Coba tanyakan, misalnya: \"Apa manfaat jahe?\"",
+    "out_of_scope": "Maaf, \"{term}\" bukan tumbuhan tropis yang tercakup di basis pengetahuan saya, jadi saya tidak menjawabnya. Tumbuhan yang tersedia: {daftar}.",
+    "no_match": "Maaf, saya belum menemukan jawabannya di basis pengetahuan tumbuhan tropis saya. Coba sebut nama tumbuhan dan hal yang ingin diketahui (manfaat, ciri, habitat, perawatan). Tumbuhan yang tersedia: {daftar}.",
+    "clarify": "Tumbuhan tropis apa yang Anda maksud? Tersedia: {daftar}.",
+    "handoff_offer": "Jika masih belum terjawab, ketik \"admin\" untuk dihubungkan ke petugas.",
+    "handoff_created": "Pertanyaan Anda saya teruskan ke petugas (tiket {ticket}). Mohon tunggu balasan. Ketik \"bot\" untuk kembali ke chatbot.",
+    "handoff_waiting": "Pesan Anda sudah diteruskan ke petugas (tiket {ticket}). Ketik \"bot\" untuk kembali ke chatbot.",
+    "back_to_bot": "Baik, Anda kembali bersama chatbot tumbuhan tropis. Silakan bertanya.",
+    "ticket_closed": "Percakapan dengan petugas telah selesai. Anda kembali bersama chatbot tumbuhan tropis.",
+    "empty": "Silakan ketik pertanyaan seputar tumbuhan tropis.",
+    "rate_limited": "Terlalu banyak pesan dalam waktu singkat. Mohon tunggu sebentar.",
+    "non_text": "Maaf, saya hanya bisa membaca pesan teks."
+  },
+  "rules": [
+    {"id": "greeting", "type": "smalltalk", "priority": 100, "max_words": 4,
+     "patterns": ["\\b(halo|hai|hi|hello|assalamualaikum)\\b|\\bselamat (pagi|siang|sore|malam)\\b"],
+     "response": "Halo! Saya asisten pengetahuan tumbuhan tropis. Tanyakan manfaat, ciri, habitat, atau cara merawat tanaman tropis, misalnya: \"Apa manfaat jahe?\""},
+    {"id": "thanks", "type": "smalltalk", "priority": 100, "max_words": 5,
+     "patterns": ["\\b(terima kasih|terimakasih|makasih|thanks|thank you)\\b"],
+     "response": "Sama-sama! Ada pertanyaan lain seputar tumbuhan tropis?"},
+    {"id": "bye", "type": "smalltalk", "priority": 100, "max_words": 4,
+     "patterns": ["\\b(sampai jumpa|dadah|bye|selamat tinggal)\\b"],
+     "response": "Sampai jumpa! Semoga tanaman Anda tumbuh subur."},
+    {"id": "identity", "type": "smalltalk", "priority": 100, "max_words": 5,
+     "patterns": ["\\b(kamu|anda) siapa\\b|\\bsiapa (kamu|anda)\\b|\\bnama (kamu|anda)\\b"],
+     "response": "Saya chatbot berbasis aturan (heuristik) yang hanya membahas tumbuhan tropis. Jawaban saya berasal dari basis pengetahuan tetap, bukan model bahasa generatif."},
+    {"id": "capability", "type": "smalltalk", "priority": 100, "max_words": 6,
+     "patterns": ["\\b(bisa|dapat) apa\\b|^(bantuan|help|menu|fitur)$|\\bapa fitur\\b"],
+     "response": "Saya bisa menjawab: manfaat, ciri, habitat, keamanan, nama ilmiah, cara tanam dan perawatan tumbuhan tropis, membandingkan dua tumbuhan, serta membantu masalah umum tanaman (daun kuning, layu, hama). Ketik \"daftar tumbuhan\" untuk melihat data."},
+    {"id": "plant_list", "type": "faq", "priority": 90, "no_plant": true,
+     "patterns": ["\\b(daftar|list|apa saja)\\b", "\\b(tumbuhan|tanaman)\\b"],
+     "response": "Tumbuhan tropis dalam basis pengetahuan: {daftar_tumbuhan}."},
+    {"id": "faq_bunga_bangkai", "type": "faq", "priority": 80, "no_plant": true,
+     "patterns": ["\\bbunga bangkai\\b"],
+     "response": "Sebutan \"bunga bangkai\" biasanya merujuk pada Amorphophallus titanum (suweg raksasa), yang berbeda dari Rafflesia arnoldii (padma raksasa). Keduanya tumbuhan tropis Sumatra. Di basis pengetahuan saya saat ini baru ada Rafflesia."},
+    {"id": "faq_ciri_umum_tropis", "type": "faq", "priority": 96, "no_plant": true,
+     "patterns": ["\\bciri\\b", "\\b(umum|tropis)\\b", "\\b(tumbuhan|tanaman)\\b"],
+     "response": "Ciri-ciri tumbuhan tropis beragam sesuai jenis dan habitatnya:\n- Bentuknya dapat berupa pohon, semak, herba, liana, atau tumbuhan merambat.\n- Sebagian besar tumbuh baik pada suhu hangat, tetapi tumbuhan pegunungan tropis dapat beradaptasi dengan suhu lebih rendah.\n- Banyak tumbuhan hutan hujan memiliki daun lebar untuk fotosintesis; sebagian berujung meruncing agar air hujan mudah mengalir.\n- Pertumbuhan dapat aktif sepanjang tahun jika suhu dan air mendukung, bergantung pada jenis dan kondisi lingkungan.\n- Sistem akar beragam, seperti akar tunggang, serabut, gantung, dan papan, untuk menyerap air, memperoleh nutrisi, atau menopang tubuh.\n- Adaptasi berbeda-beda untuk menghadapi kelembapan tinggi, kekeringan, intensitas cahaya, tanah tergenang, atau tanah miskin hara.\n- Keanekaragamannya mencakup pohon, semak, tumbuhan merambat, paku-pakuan, anggrek, epifit, dan tumbuhan karnivor.\n\nTidak semua tumbuhan tropis menyukai banyak air. Kaktus tropis tertentu, tumbuhan savana, dan tumbuhan daerah tropis kering memiliki adaptasi berbeda."},
+    {"id": "faq_jenis_tropis", "type": "faq", "priority": 95, "no_plant": true,
+     "patterns": ["\\b(jenis|kelompok|macam)\\b", "\\b(tumbuhan|tanaman)\\b", "\\btropis\\b"],
+     "response": "Jenis tumbuhan tropis dapat dikelompokkan menurut bentuk dan pemanfaatannya:\n- Pohon: misalnya meranti, jati, dan mahoni; menyediakan habitat, menyimpan karbon, dan membantu menjaga kestabilan tanah.\n- Tumbuhan pangan: misalnya pisang, kelapa, singkong, dan kakao.\n- Tumbuhan karnivor: misalnya kantong semar (Nepenthes), yang menangkap serangga untuk memperoleh unsur hara tambahan.\n- Tumbuhan hias: misalnya anggrek, anthurium, dan heliconia.\n\nPengelompokan ini tidak mutlak; satu tumbuhan dapat memiliki beberapa fungsi."},
+    {"id": "faq_habitat_tropis", "type": "faq", "priority": 95, "no_plant": true,
+     "patterns": ["\\bhabitat\\b", "\\btropis\\b"],
+     "response": "Tumbuhan tropis hidup di beragam habitat, antara lain:\n- Hutan hujan tropis yang bercurah hujan tinggi dan bervegetasi rapat.\n- Hutan musim dengan perbedaan kondisi musim hujan dan kemarau.\n- Pegunungan tropis yang bersuhu lebih rendah daripada dataran rendah.\n- Pesisir dan mangrove dengan air asin atau tanah berlumpur.\n- Rawa dengan tanah basah atau tergenang.\n\nKebutuhan air, suhu, dan cahaya berbeda menurut habitat dan jenis tumbuhannya."},
+    {"id": "faq_manfaat_tropis", "type": "faq", "priority": 95, "no_plant": true,
+     "patterns": ["\\b(manfaat|peran|fungsi)\\b", "\\b(tumbuhan|tanaman)\\b", "\\btropis\\b"],
+     "response": "Tumbuhan tropis berperan penting bagi lingkungan dan manusia:\n- Menghasilkan oksigen melalui fotosintesis dan menyerap karbon dioksida.\n- Menjadi sumber makanan bagi manusia dan hewan.\n- Menyediakan bahan untuk obat-obatan dan industri.\n- Membantu menjaga kestabilan tanah dan mengurangi erosi.\n- Menjadi habitat serta sumber makanan bagi berbagai organisme.\n- Mendukung pertanian, perkebunan, kehutanan, dan pariwisata alam."},
+    {"id": "faq_perkembangbiakan_tropis", "type": "faq", "priority": 95, "no_plant": true,
+     "patterns": ["\\b(berkembang biak|perkembangbiakan|reproduksi)\\b", "\\btropis\\b"],
+     "response": "Tumbuhan tropis berkembang biak dengan dua cara utama:\n- Generatif: melalui bunga, penyerbukan, dan pembentukan biji, misalnya pada mangga, kelapa, dan anggrek.\n- Vegetatif: melalui bagian tubuh seperti batang, akar, atau tunas, misalnya pisang melalui tunas dan singkong melalui stek batang."},
+    {"id": "faq_ancaman_pelestarian_tropis", "type": "faq", "priority": 95, "no_plant": true,
+     "patterns": ["\\b(ancaman|pelestarian\\w*|konservasi|melestarikan)\\b", "\\btropis\\b"],
+     "response": "Tumbuhan tropis menghadapi ancaman berupa penebangan berlebihan, alih fungsi lahan, kebakaran hutan, pencemaran, perdagangan tumbuhan ilegal, dan perubahan iklim. Upaya pelestarian meliputi perlindungan hutan, reboisasi, kawasan konservasi, budidaya tumbuhan langka, pencegahan penebangan liar, serta edukasi masyarakat tentang keanekaragaman hayati."},
+    {"id": "faq_tropis", "type": "faq", "priority": 85, "no_plant": true,
+     "patterns": ["\\btropis\\b", "\\b(apa itu|pengertian|maksud|definisi)\\b"],
+     "response": "Tumbuhan tropis adalah kelompok tumbuhan yang hidup dan tumbuh di wilayah beriklim tropis sekitar garis khatulistiwa. Wilayah ini umumnya bersuhu hangat sepanjang tahun, menerima sinar matahari melimpah, dan memiliki pola curah hujan yang beragam. Bentuk dan adaptasi tumbuhan tropis berbeda sesuai habitatnya: ada yang berdaun lebar, mampu bertahan di lingkungan kering, atau memperoleh nutrisi dengan cara khusus di tanah miskin hara. Indonesia memiliki keanekaragaman tumbuhan tropis yang tinggi karena kondisi iklim dan wilayahnya mendukung beragam spesies."},
+    {"id": "gl_rimpang", "type": "glossary", "priority": 70, "no_plant": true, "patterns": ["\\brimpang\\b"],
+     "response": "Rimpang adalah batang yang tumbuh mendatar di bawah tanah dan menyimpan cadangan makanan, contohnya pada jahe dan kunyit."},
+    {"id": "gl_epifit", "type": "glossary", "priority": 70, "no_plant": true, "patterns": ["\\bepifit\\b"],
+     "response": "Epifit adalah tumbuhan yang menempel pada tumbuhan lain (misalnya pohon) sebagai tempat tumbuh tanpa mengambil makanan dari inangnya, seperti anggrek bulan."},
+    {"id": "gl_parasit", "type": "glossary", "priority": 70, "no_plant": true, "patterns": ["\\bparasit\\b"],
+     "response": "Tumbuhan parasit mengambil air dan zat makanan dari tumbuhan inangnya. Contohnya Rafflesia arnoldii yang menumpang pada liana Tetrastigma."},
+    {"id": "gl_liana", "type": "glossary", "priority": 70, "no_plant": true, "patterns": ["\\bliana\\b"],
+     "response": "Liana adalah tumbuhan berkayu yang merambat atau memanjat pohon lain untuk mencapai cahaya, banyak ditemukan di hutan hujan tropis."},
+    {"id": "gl_stek", "type": "glossary", "priority": 70, "no_plant": true, "patterns": ["\\b(stek|menstek)\\b"],
+     "response": "Stek adalah perbanyakan vegetatif dengan memotong bagian tanaman, misalnya batang, lalu menumbuhkannya menjadi tanaman baru, seperti pada kelor dan sirih."},
+    {"id": "gl_okulasi", "type": "glossary", "priority": 70, "no_plant": true, "patterns": ["\\b(okulasi|menempel tunas)\\b"],
+     "response": "Okulasi adalah teknik menempelkan mata tunas dari tanaman unggul ke batang bawah agar sifat unggulnya terjaga dan tanaman lebih cepat berbuah. Teknik penyambungan seperti ini sering dipakai pada tanaman buah."},
+    {"id": "gl_cangkok", "type": "glossary", "priority": 70, "no_plant": true, "patterns": ["\\b(cangkok|mencangkok)\\b"],
+     "response": "Cangkok adalah perbanyakan dengan memicu tumbuhnya akar pada cabang yang masih menempel di pohon induk, lalu cabang itu dipotong dan ditanam."},
+    {"id": "gl_mdpl", "type": "glossary", "priority": 70, "no_plant": true, "patterns": ["\\bmdpl\\b"],
+     "response": "mdpl berarti meter di atas permukaan laut, ukuran ketinggian tempat tumbuh sebuah tumbuhan."},
+    {"id": "gl_fotosintesis", "type": "glossary", "priority": 70, "no_plant": true, "patterns": ["\\bfotosintesis\\b"],
+     "response": "Fotosintesis adalah proses tumbuhan mengubah karbon dioksida dan air menjadi glukosa dan oksigen dengan bantuan cahaya matahari dan klorofil."},
+    {"id": "gl_kompos", "type": "glossary", "priority": 70, "no_plant": true, "patterns": ["\\bkompos\\b"],
+     "response": "Kompos adalah pupuk organik hasil pelapukan sisa tumbuhan dan bahan organik oleh mikroorganisme."},
+    {"id": "gl_gulma", "type": "glossary", "priority": 70, "no_plant": true, "patterns": ["\\bgulma\\b"],
+     "response": "Gulma adalah tumbuhan pengganggu yang tumbuh di tempat yang tidak dikehendaki dan bersaing dengan tanaman utama dalam mendapatkan air, cahaya, dan hara."},
+    {"id": "gl_polinasi", "type": "glossary", "priority": 70, "no_plant": true, "patterns": ["\\b(polinasi|penyerbukan)\\b"],
+     "response": "Polinasi (penyerbukan) adalah berpindahnya serbuk sari ke kepala putik, dibantu angin, serangga, atau hewan lain, sebagai awal terbentuknya buah dan biji."},
+    {"id": "sx_daun_kuning", "type": "symptom", "priority": 60,
+     "patterns": ["\\bdaun\\b", "\\b(kuning|menguning)\\b"],
+     "response": "Daun menguning biasanya karena kelebihan air, kekurangan unsur hara (misalnya nitrogen), atau akar kurang oksigen. Periksa drainase, kurangi penyiraman, dan beri pupuk organik berimbang."},
+    {"id": "sx_bercak", "type": "symptom", "priority": 60,
+     "patterns": ["\\bdaun\\b", "\\bbercak\\b"],
+     "response": "Bercak pada daun sering menandakan infeksi jamur atau bakteri. Buang daun yang terserang, kurangi kelembapan, dan hindari menyiram langsung ke daun."},
+    {"id": "sx_daun_coklat", "type": "symptom", "priority": 60,
+     "patterns": ["\\bdaun\\b", "\\b(coklat|cokelat|gosong)\\b"],
+     "response": "Ujung atau tepi daun coklat umumnya karena udara terlalu kering, kelebihan pupuk, atau kurang air. Sesuaikan penyiraman dan hentikan pemupukan berlebih."},
+    {"id": "sx_layu", "type": "symptom", "priority": 60,
+     "patterns": ["\\b(layu|melayu|terkulai)\\b"],
+     "response": "Tanaman layu bisa karena kurang air, akar busuk, atau panas berlebih. Periksa kelembapan media dan kondisi akar sebelum menyiram lagi."},
+    {"id": "sx_akar_busuk", "type": "symptom", "priority": 60,
+     "patterns": ["\\bakar\\b", "\\bbusuk\\b"],
+     "response": "Akar busuk umumnya akibat media terlalu basah atau drainase buruk. Potong bagian yang busuk, ganti media yang porous, dan kurangi frekuensi penyiraman."},
+    {"id": "sx_tidak_berbuah", "type": "symptom", "priority": 60,
+     "patterns": ["\\b(tidak|belum|susah|sulit) (mau )?berbuah\\b"],
+     "response": "Gagal berbuah dapat disebabkan umur tanaman yang belum cukup, cahaya kurang, polinasi kurang, atau pupuk nitrogen berlebih. Pastikan cahaya cukup dan beri pupuk fosfor-kalium."},
+    {"id": "sx_tidak_berbunga", "type": "symptom", "priority": 60,
+     "patterns": ["\\b(tidak|belum|susah|sulit) (mau )?berbunga\\b"],
+     "response": "Tanaman sulit berbunga biasanya karena cahaya kurang, pupuk nitrogen terlalu tinggi, atau umur belum cukup. Tambah cahaya dan pakai pupuk fosfor-kalium."},
+    {"id": "sx_hama", "type": "symptom", "priority": 60,
+     "patterns": ["\\b(kutu|ulat|hama|belalang|siput)\\b"],
+     "response": "Hama kecil seperti kutu daun dapat dikendalikan dengan semprotan air sabun atau minyak nimba, serta menjaga kebersihan tanaman. Untuk ulat dan siput, ambil manual di pagi atau sore hari."},
+    {"id": "sx_kerdil", "type": "symptom", "priority": 60,
+     "patterns": ["\\b(kerdil|lambat tumbuh|pertumbuhan lambat|tidak tumbuh)\\b"],
+     "response": "Pertumbuhan kerdil dapat disebabkan tanah miskin hara, cahaya kurang, akar terganggu, atau serangan hama dan penyakit. Periksa media tanam, cahaya, dan kondisi akar."}
+  ],
+  "plants": {
+    "jahe": {
+      "ilmiah": "Zingiber officinale", "famili": "Zingiberaceae",
+      "alias": ["jahe merah", "jahe gajah", "halia", "ginger"], "herbal": true,
+      "ciri": "Herba menahun dengan rimpang bercabang berwarna kuning pucat hingga kemerahan, daun lanset tersusun dua baris, tinggi sekitar 30-100 cm.",
+      "habitat": "Daerah tropis lembap, tanah gembur kaya humus, suhu sekitar 20-35 C, dari dataran rendah hingga sekitar 1.500 mdpl.",
+      "manfaat": "Rempah dapur, minuman hangat, dan bahan jamu tradisional. Rimpangnya mengandung gingerol yang dikenal menghangatkan tubuh.",
+      "perawatan": "Tanam potongan rimpang bermata tunas di tanah gembur, siram teratur tanpa menggenang, beri naungan ringan, panen sekitar 8-10 bulan.",
+      "keamanan": "Aman sebagai bumbu masakan. Konsumsi berlebihan dapat mengganggu lambung."
+    },
+    "kunyit": {
+      "ilmiah": "Curcuma longa", "famili": "Zingiberaceae",
+      "alias": ["kunir", "turmeric"], "herbal": true,
+      "ciri": "Herba menahun dengan rimpang berwarna oranye-kuning, daun lebar memanjang, dan bunga putih kekuningan.",
+      "habitat": "Daerah tropis, tanah gembur dengan drainase baik, tahan naungan sebagian.",
+      "manfaat": "Bumbu masak, pewarna alami, dan bahan jamu. Zat aktif utamanya adalah kurkumin.",
+      "perawatan": "Tanam rimpang di tanah gembur, siram secukupnya, bebaskan dari gulma, panen sekitar 7-10 bulan saat daun mulai menguning.",
+      "keamanan": "Aman sebagai bumbu. Suplemen dosis tinggi sebaiknya dikonsultasikan dengan tenaga kesehatan."
+    },
+    "kelor": {
+      "ilmiah": "Moringa oleifera", "famili": "Moringaceae",
+      "alias": ["moringa", "marunggai"], "herbal": true,
+      "ciri": "Pohon kecil bercabang dengan daun majemuk berukuran kecil dan buah polong panjang.",
+      "habitat": "Tropis dan subtropis, dari daerah kering hingga lembap, tahan kekeringan dan tumbuh cepat.",
+      "manfaat": "Daun dimasak sebagai sayur dan kaya protein, zat besi, serta vitamin. Biji dapat dipakai untuk menjernihkan air secara tradisional.",
+      "perawatan": "Mudah ditanam dari stek batang atau biji, butuh sinar matahari penuh, pangkas agar tetap rendah dan rimbun.",
+      "keamanan": "Daun aman dikonsumsi dalam jumlah wajar. Akar dan kulit batang sebaiknya tidak dikonsumsi sembarangan."
+    },
+    "sirih": {
+      "ilmiah": "Piper betle", "famili": "Piperaceae",
+      "alias": ["daun sirih", "sirih hijau"], "herbal": true,
+      "ciri": "Tumbuhan merambat berdaun bentuk jantung dengan permukaan licin dan aroma khas.",
+      "habitat": "Tropis lembap, naungan sebagian, memerlukan tiang atau pohon untuk merambat.",
+      "manfaat": "Dipakai dalam ramuan tradisional dan sebagai antiseptik alami, serta dalam tradisi menyirih.",
+      "perawatan": "Sediakan tiang rambatan, siram teratur, tempatkan di naungan sebagian, perbanyak dengan stek batang.",
+      "keamanan": "Pemakaian luar tradisional umumnya dianggap aman. Kebiasaan mengunyah sirih jangka panjang berkaitan dengan risiko kesehatan mulut."
+    },
+    "pisang": {
+      "ilmiah": "Musa spp.", "famili": "Musaceae",
+      "alias": ["pisang raja", "pisang kepok", "banana"], "herbal": false,
+      "ciri": "Herba raksasa dengan batang semu dari pelepah daun yang saling membungkus, daun lebar memanjang, dan buah tersusun dalam sisir pada satu tandan.",
+      "habitat": "Tropis lembap dengan suhu sekitar 25-30 C, tanah subur dan gembur dengan drainase baik.",
+      "manfaat": "Buah dimakan segar atau diolah, jantung pisang dan batang muda dimasak, daun dipakai sebagai pembungkus makanan.",
+      "perawatan": "Perbanyak dengan anakan atau bonggol, beri pupuk organik, siram teratur, sisakan 2-3 anakan terbaik per rumpun, dan tebang batang semu setelah panen.",
+      "keamanan": "Buah aman dikonsumsi. Getah batang dapat meninggalkan noda yang sulit hilang pada pakaian."
+    },
+    "kelapa": {
+      "ilmiah": "Cocos nucifera", "famili": "Arecaceae",
+      "alias": ["pohon kelapa", "coconut", "nyiur"], "herbal": false,
+      "ciri": "Palem tinggi sekitar 20-30 m dengan batang tunggal tanpa cabang, daun menyirip panjang di ujung batang, dan buah berserabut dengan tempurung keras.",
+      "habitat": "Dataran rendah tropis terutama pesisir, menyukai sinar matahari penuh, tahan tanah berpasir dan angin laut.",
+      "manfaat": "Air kelapa, daging buah, dan santan untuk makanan; minyak kelapa; sabut dan tempurung untuk kerajinan dan bahan bakar.",
+      "perawatan": "Tanam bibit pada lubang tanam yang cukup dalam dengan jarak lebar, beri pupuk dan air saat kemarau; mulai berbuah sekitar 3-8 tahun tergantung varietas.",
+      "keamanan": "Buah dan air kelapa aman dikonsumsi. Buah yang jatuh dari pohon tinggi berisiko membahayakan orang di bawahnya."
+    },
+    "pepaya": {
+      "ilmiah": "Carica papaya", "famili": "Caricaceae",
+      "alias": ["papaya", "gedang", "kates"], "herbal": true,
+      "ciri": "Pohon kecil berbatang lunak dan berongga setinggi sekitar 2-10 m, daun besar menjari di ujung batang, buah berdaging dengan banyak biji di tengah.",
+      "habitat": "Tropis dataran rendah, butuh sinar matahari dan tanah gembur dengan drainase baik, tidak tahan genangan.",
+      "manfaat": "Buah dimakan segar, daun dan bunga dimasak sebagai sayur, getahnya mengandung enzim papain yang dipakai sebagai pengempuk daging.",
+      "perawatan": "Tanam dari biji, siram teratur tanpa menggenang, beri pupuk organik; berbuah sekitar 6-12 bulan setelah tanam.",
+      "keamanan": "Buah matang aman dikonsumsi. Getah dapat mengiritasi kulit sebagian orang, dan ibu hamil disarankan berkonsultasi sebelum mengonsumsi pepaya muda."
+    },
+    "durian": {
+      "ilmiah": "Durio zibethinus", "famili": "Malvaceae",
+      "alias": ["raja buah", "durian montong"], "herbal": false,
+      "ciri": "Pohon besar setinggi sekitar 25-50 m dengan daun tunggal mengilap, buah berkulit tebal berduri tajam, beraroma kuat, dan berdaging lembut.",
+      "habitat": "Tropis dataran rendah yang lembap dengan curah hujan tinggi, tanah subur dan drainase baik.",
+      "manfaat": "Buah dimakan segar atau diolah menjadi makanan dan minuman; bijinya dapat dimasak.",
+      "perawatan": "Gunakan bibit sambung atau okulasi agar lebih cepat berbuah, beri jarak tanam lebar, pangkas cabang, dan pupuk rutin. Tanaman dari biji berbuah lebih lama.",
+      "keamanan": "Aman dikonsumsi dalam jumlah wajar, namun kalori dan gulanya tinggi. Buah berduri dapat melukai saat jatuh atau ditangani."
+    },
+    "cengkeh": {
+      "ilmiah": "Syzygium aromaticum", "famili": "Myrtaceae",
+      "alias": ["cengkih", "clove"], "herbal": true,
+      "ciri": "Pohon hijau sepanjang tahun setinggi sekitar 10-20 m dengan daun lonjong beraroma dan kuncup bunga yang dipanen sebelum mekar.",
+      "habitat": "Tropis lembap, asli Kepulauan Maluku, tumbuh baik di dataran rendah hingga ketinggian sedang dengan tanah subur.",
+      "manfaat": "Rempah masakan, bahan rokok kretek, dan sumber minyak atsiri yang mengandung eugenol.",
+      "perawatan": "Tanam bibit di tanah subur berdrainase baik, lindungi bibit muda dari terik, pangkas dan pupuk berkala, panen kuncup bunga saat masih hijau kemerahan.",
+      "keamanan": "Aman sebagai rempah. Minyak cengkeh pekat dapat mengiritasi kulit dan mulut sehingga perlu diencerkan dan dipakai hati-hati."
+    },
+    "anggrek bulan": {
+      "ilmiah": "Phalaenopsis amabilis", "famili": "Orchidaceae",
+      "alias": ["anggrek", "puspa pesona", "moth orchid", "Phalaenopsis amabilis"], "herbal": false,
+      "ciri": "Anggrek epifit dengan daun tebal lebar berbentuk lonjong dan bunga besar berwarna putih yang tersusun pada tangkai panjang.",
+      "habitat": "Hutan tropis lembap, menempel pada batang atau cabang pohon, menyukai teduh terang dan kelembapan tinggi.",
+      "manfaat": "Tanaman hias bernilai tinggi dan salah satu bunga nasional Indonesia dengan sebutan puspa pesona.",
+      "perawatan": "Tanam pada media sabut kelapa, serpihan kayu, atau arang; letakkan di tempat teduh terang tanpa sinar matahari langsung; siram saat media mulai kering dan hindari air menggenang di pangkal daun.",
+      "keamanan": "Umumnya dianggap tidak beracun."
+    },
+    "rafflesia": {
+      "ilmiah": "Rafflesia arnoldii", "famili": "Rafflesiaceae",
+      "alias": ["padma raksasa", "rafflesia arnoldii"], "herbal": false,
+      "ciri": "Tumbuhan parasit tanpa akar, batang, dan daun sejati; hanya bunga besar merah bata berbintik putih yang tampak, berdiameter hingga sekitar 100 cm.",
+      "habitat": "Hutan hujan tropis Sumatra, hidup menumpang pada akar dan batang liana Tetrastigma.",
+      "manfaat": "Bunga besar berbau seperti bangkai dan menjadi objek ilmu pengetahuan serta konservasi; tumbuhan ini mengambil nutrisi dari inang genus Tetrastigma dan bukan tanaman budidaya.",
+      "perawatan": "Tidak dapat dibudidayakan secara umum karena bergantung pada inangnya; pelestarian dilakukan di habitat alaminya dan pengambilan dari alam dilarang.",
+      "keamanan": "Tumbuhan dilindungi, dilarang diambil atau diperdagangkan. Bunganya berbau busuk untuk menarik serangga penyerbuk."
+    },
+    "kantong semar": {
+      "ilmiah": "Nepenthes spp.", "famili": "Nepenthaceae",
+      "alias": ["nepenthes", "periuk kera", "kantung semar", "Nepenthes ampullaria"], "herbal": false,
+      "ciri": "Tumbuhan karnivora dengan daun termodifikasi berbentuk kantong untuk menangkap dan mencerna hewan kecil. Nepenthes ampullaria memiliki kantong bulat yang dapat mengumpulkan serasah daun.",
+      "habitat": "Hutan tropis Indonesia, umumnya di lingkungan lembap dan tanah miskin unsur hara; kebutuhan habitat berbeda menurut spesies.",
+      "manfaat": "Menangkap dan mencerna serangga serta hewan kecil untuk memperoleh nutrisi tambahan, terutama nitrogen, di habitat miskin hara; membantu keseimbangan ekosistem dan keanekaragaman hayati, serta menjadi objek penelitian dan tanaman hias. Nepenthes ampullaria juga memperoleh nutrisi dari serasah daun dan organisme kecil dalam kantong.",
+      "perawatan": "Jika dibudidayakan, sesuaikan cahaya, kelembapan, suhu, dan media miskin hara dengan spesiesnya. Hindari tanah kebun kaya pupuk dan jangan memberi pupuk langsung ke kantong tanpa panduan budidaya spesifik.",
+      "keamanan": "Bukan tanaman pangan. Jangan mengambil tumbuhan dari alam; status perlindungan dan aturan perdagangan dapat berbeda menurut spesies."
+    },
+    "padi": {
+      "ilmiah": "Oryza sativa", "famili": "Poaceae",
+      "alias": ["beras", "gabah", "tanaman padi"], "herbal": false,
+      "ciri": "Rumput semusim berbatang berongga setinggi sekitar 80-150 cm dengan malai berisi bulir gabah.",
+      "habitat": "Lahan basah atau sawah di daerah tropis, suhu sekitar 22-30 C.",
+      "manfaat": "Menghasilkan beras sebagai makanan pokok; jerami dan dedak dimanfaatkan untuk pakan dan kompos.",
+      "perawatan": "Semai benih, pindah tanam saat berumur sekitar 2-3 minggu, atur tinggi genangan air, beri pupuk berimbang, dan kendalikan hama seperti wereng dan tikus.",
+      "keamanan": "Beras aman dikonsumsi."
+    },
+    "rotan": {
+      "ilmiah": "Calamus spp.", "famili": "Arecaceae",
+      "alias": ["pohon rotan", "rotan hutan", "Calamus spp."], "herbal": false,
+      "ciri": "Kelompok palem merambat dengan batang panjang, lentur, dan umumnya berduri atau memiliki sulur pengait untuk memanjat vegetasi lain.",
+      "habitat": "Hutan tropis lembap, tumbuh di bawah naungan dan memanjat pohon untuk mencapai lapisan yang lebih terang.",
+      "manfaat": "Batangnya dimanfaatkan sebagai bahan furnitur, anyaman, dan kerajinan; buah beberapa jenis juga menjadi pakan satwa.",
+      "perawatan": "Rotan hutan bergantung pada kondisi dan pohon penopang di habitatnya; pelestarian dilakukan dengan menjaga hutan dan memanen secara lestari.",
+      "keamanan": "Duri pada batang dan pelepah dapat melukai kulit. Nama rotan mencakup banyak jenis dengan karakteristik berbeda."
+    },
+    "karet": {
+      "ilmiah": "Hevea brasiliensis", "famili": "Euphorbiaceae",
+      "alias": ["pohon karet", "karet alam"], "herbal": false,
+      "ciri": "Pohon berkayu dengan daun majemuk beranak daun tiga dan getah putih (lateks) pada jaringan batang.",
+      "habitat": "Tumbuh baik di wilayah tropis hangat dan lembap; di Indonesia umumnya dibudidayakan di perkebunan, bukan tumbuhan asli hutan hujan Indonesia.",
+      "manfaat": "Lateksnya merupakan bahan baku utama karet alam untuk berbagai barang, termasuk ban dan sarung tangan.",
+      "perawatan": "Dibudidayakan dari bibit di tanah berdrainase baik; penyadapan dilakukan pada pohon matang dengan teknik yang tidak merusak batang.",
+      "keamanan": "Lateks dapat memicu alergi pada orang yang sensitif. Getah tidak untuk dikonsumsi."
+    },
+    "meranti": {
+      "ilmiah": "Shorea spp.", "famili": "Dipterocarpaceae",
+      "alias": ["pohon meranti", "kayu meranti", "Shorea spp."], "herbal": false,
+      "ciri": "Kelompok pohon hutan berukuran besar dengan batang lurus dan tajuk tinggi; ciri daun, bunga, dan buah berbeda antarjenis.",
+      "habitat": "Hutan hujan tropis Asia Tenggara, termasuk Sumatra dan Kalimantan; banyak jenis tumbuh sebagai bagian kanopi hutan.",
+      "manfaat": "Kayunya digunakan sebagai bahan bangunan dan pertukangan; pohonnya juga menyimpan karbon dan menyediakan habitat satwa.",
+      "perawatan": "Jenis hutan ini memerlukan habitat luas dan tidak cocok diperlakukan sebagai tanaman pekarangan; lindungi hutan alami dan gunakan kayu dari sumber legal dan lestari.",
+      "keamanan": "Meranti mencakup banyak spesies, beberapa di antaranya terancam akibat kehilangan habitat dan penebangan. Identifikasi sampai tingkat spesies diperlukan untuk informasi konservasi yang tepat."
+    },
+    "ulin": {
+      "ilmiah": "Eusideroxylon zwageri", "famili": "Lauraceae",
+      "alias": ["kayu ulin", "kayu besi", "pohon ulin"], "herbal": false,
+      "ciri": "Pohon berkayu keras dan tumbuh lambat, berbatang besar dengan daun tunggal; kayunya sangat awet dan berat.",
+      "habitat": "Hutan tropis Kalimantan dan sebagian Sumatra, terutama pada tanah yang memiliki drainase baik.",
+      "manfaat": "Kayu kuat dan tahan lama digunakan untuk konstruksi; pohon dewasa turut menjadi bagian penting ekosistem hutan.",
+      "perawatan": "Pertumbuhan lambat dan kebutuhan habitat alaminya membuat pelestarian hutan serta regenerasi alami lebih sesuai daripada pemanenan liar.",
+      "keamanan": "Penebangan berlebihan dapat mengancam populasinya. Pastikan kayu berasal dari sumber legal."
+    },
+    "ramin": {
+      "ilmiah": "Gonystylus bancanus", "famili": "Thymelaeaceae",
+      "alias": ["kayu ramin", "pohon ramin"], "herbal": false,
+      "ciri": "Pohon hutan dengan batang lurus dan kayu berwarna pucat; ukuran dan ciri dapat bervariasi menurut umur dan kondisi tumbuh.",
+      "habitat": "Hutan rawa gambut dan rawa air tawar di Asia Tenggara, termasuk wilayah Indonesia.",
+      "manfaat": "Kayunya pernah banyak digunakan untuk mebel dan kerajinan; pohon hidup membantu menjaga ekosistem rawa.",
+      "perawatan": "Jaga habitat rawa gambut dan hindari pengambilan dari alam. Jenis ini tidak sesuai untuk budidaya pekarangan biasa.",
+      "keamanan": "Populasinya tertekan oleh kehilangan habitat dan eksploitasi; perdagangan kayu harus mematuhi ketentuan konservasi dan legalitas."
+    },
+    "akasia": {
+      "ilmiah": "Acacia spp.", "famili": "Fabaceae",
+      "alias": ["pohon akasia", "acacia"], "herbal": false,
+      "ciri": "Kelompok pohon atau perdu dengan daun dan bentuk tajuk yang beragam; beberapa jenis memiliki duri dan menghasilkan polong.",
+      "habitat": "Beragam jenis tumbuh di wilayah tropis, dari hutan terbuka hingga lahan budidaya. Akasia yang ditanam di Indonesia dapat merupakan tanaman introduksi.",
+      "manfaat": "Bergantung pada jenisnya, akasia dimanfaatkan sebagai kayu, bahan pulp, peneduh, atau tanaman penghijauan.",
+      "perawatan": "Sesuaikan perawatan dengan spesies; pastikan jenis yang ditanam cocok dengan lokasi dan tidak berpotensi menyebar invasif.",
+      "keamanan": "Nama akasia mencakup banyak spesies sehingga sifat dan keamanannya tidak dapat disamaratakan; identifikasi jenis sebelum pemanfaatan."
+    },
+    "rambutan": {
+      "ilmiah": "Nephelium lappaceum", "famili": "Sapindaceae",
+      "alias": ["pohon rambutan", "buah rambutan"], "herbal": false,
+      "ciri": "Pohon tropis berdaun majemuk; buahnya memiliki kulit dengan rambut-rambut lentur dan daging buah bening yang menyelimuti biji.",
+      "habitat": "Wilayah tropis hangat dan lembap, tumbuh baik di tanah subur dengan drainase baik.",
+      "manfaat": "Buah matang dimakan segar atau diolah; pohonnya juga dapat menyediakan naungan dan makanan bagi satwa pemakan buah.",
+      "perawatan": "Tanam di lokasi bercahaya cukup dengan ruang untuk tajuk, siram bibit secara teratur, dan pangkas cabang yang kering atau sakit.",
+      "keamanan": "Konsumsi daging buahnya; biji mentah dan kulit buah tidak dianjurkan untuk dimakan."
+    },
+    "mangga": {
+      "ilmiah": "Mangifera indica", "famili": "Anacardiaceae",
+      "alias": ["pohon mangga", "mempelam"], "herbal": false,
+      "ciri": "Pohon berkayu dengan daun tunggal memanjang; buah berdaging dengan satu biji besar dan bentuk yang beragam antarvarietas.",
+      "habitat": "Daerah tropis hangat, umumnya tumbuh baik di tempat bercahaya penuh dengan tanah berdrainase baik.",
+      "manfaat": "Buah matang dimakan segar atau diolah menjadi makanan dan minuman; pohon dewasa memberi naungan.",
+      "perawatan": "Tanam di tempat yang mendapat matahari, beri ruang untuk tajuk dan drainase baik, serta pangkas cabang kering.",
+      "keamanan": "Getah dan kulit mangga dapat mengiritasi sebagian orang yang sensitif; cuci buah sebelum dikonsumsi."
+    },
+    "kayu manis": {
+      "ilmiah": "Cinnamomum burmannii", "famili": "Lauraceae",
+      "alias": ["pohon kayu manis", "cinnamon", "Cinnamomum spp."], "herbal": false,
+      "ciri": "Kelompok pohon aromatik dengan daun tunggal dan kulit batang beraroma; spesies dan bentuk daun berbeda menurut jenisnya.",
+      "habitat": "Wilayah tropis lembap; beberapa jenis dibudidayakan di Indonesia pada dataran rendah hingga tinggi.",
+      "manfaat": "Kulit batangnya digunakan sebagai rempah karena senyawa aromatik memberi aroma khas. Profil ini merujuk pada Cinnamomum burmannii.",
+      "perawatan": "Gunakan bibit dari jenis yang teridentifikasi, tanam di tanah subur berdrainase baik, dan jaga kelembapan saat tanaman muda.",
+      "keamanan": "Nama kayu manis merujuk pada beberapa spesies dengan kandungan berbeda; konsumsi sebagai rempah dan jangan menganggapnya sebagai pengganti pengobatan."
+    },
+    "mahoni": {
+      "ilmiah": "Swietenia macrophylla", "famili": "Meliaceae",
+      "alias": ["pohon mahoni", "kayu mahoni"], "herbal": false,
+      "ciri": "Pohon besar dengan daun majemuk menyirip dan buah kapsul berkayu yang membuka untuk melepaskan biji bersayap.",
+      "habitat": "Tumbuh di wilayah tropis; di Indonesia umumnya ditanam sebagai pohon hutan tanaman atau peneduh dan bukan spesies asli hutan hujan setempat.",
+      "manfaat": "Kayunya digunakan untuk mebel dan pertukangan; pohon dapat dimanfaatkan sebagai peneduh.",
+      "perawatan": "Tanam di area luas dengan sinar matahari dan drainase baik; perhitungkan ukuran dewasanya sebelum menanam di dekat bangunan.",
+      "keamanan": "Hindari konsumsi bagian tanaman tanpa panduan ahli; pohon besar dan buahnya perlu ruang agar tidak membahayakan bangunan atau orang."
+    },
+    "bunga bangkai raksasa": {
+      "ilmiah": "Amorphophallus titanum", "famili": "Araceae",
+      "alias": ["Amorphophallus titanum", "bunga bangkai", "bunga bangkai sumatra"], "herbal": false,
+      "ciri": "Tumbuhan berumbi dengan perbungaan sangat besar yang mengeluarkan bau menyerupai bangkai saat mekar.",
+      "habitat": "Asli hutan hujan Sumatra; tumbuh dari umbi di lingkungan tropis.",
+      "manfaat": "Bernilai ilmiah, pendidikan, dan konservasi sebagai tumbuhan berbunga berperbungaan besar yang langka.",
+      "perawatan": "Memerlukan kondisi tumbuh dan siklus dormansi yang sesuai; pelestarian di habitat asli lebih utama daripada mengambil umbi dari alam.",
+      "keamanan": "Jangan mengonsumsi atau mengambil bagian tumbuhan dari alam; patuhi aturan konservasi setempat."
+    },
+    "anggrek hitam": {
+      "ilmiah": "Coelogyne pandurata", "famili": "Orchidaceae",
+      "alias": ["Coelogyne pandurata", "anggrek hitam kalimantan"], "herbal": false,
+      "ciri": "Anggrek dengan bunga yang memiliki bagian bibir berwarna hijau tua hingga kehitaman.",
+      "habitat": "Hutan tropis Kalimantan, umumnya pada lingkungan lembap.",
+      "manfaat": "Bernilai konservasi dan dibudidayakan sebagai tanaman hias; keberadaannya mendukung keanekaragaman anggrek tropis.",
+      "perawatan": "Sediakan kelembapan dan sirkulasi udara baik serta cahaya tidak langsung; jangan mengambil tanaman dari habitat alami.",
+      "keamanan": "Hindari pengambilan dari alam dan pastikan tanaman diperoleh dari sumber budidaya legal."
+    },
+    "bakau": {
+      "ilmiah": "Rhizophora mucronata", "famili": "Rhizophoraceae",
+      "alias": ["Rhizophora mucronata", "bakau minyak", "mangrove bakau"], "herbal": false,
+      "ciri": "Tumbuhan mangrove dengan akar tunjang yang menopang pohon pada substrat pesisir berlumpur.",
+      "habitat": "Kawasan mangrove tropis di pesisir dan muara yang dipengaruhi pasang surut.",
+      "manfaat": "Membantu melindungi pesisir, mengurangi energi gelombang, menyimpan karbon, dan menyediakan habitat bagi organisme pesisir.",
+      "perawatan": "Pemulihan dilakukan dengan menjaga hidrologi dan menanam jenis lokal pada habitat mangrove yang sesuai.",
+      "keamanan": "Jangan merusak atau mengambil mangrove dari kawasan lindung; ikuti ketentuan konservasi pesisir."
+    },
+    "api-api": {
+      "ilmiah": "Avicennia marina dan Avicennia officinalis", "famili": "Acanthaceae",
+      "alias": ["Avicennia marina", "Avicennia officinalis", "api api", "api-api putih"], "herbal": false,
+      "ciri": "Pohon mangrove dengan akar napas yang membantu pertukaran gas pada substrat berlumpur; ciri khusus berbeda antarspesies.",
+      "habitat": "Pesisir dan muara tropis, pada tanah berlumpur yang dipengaruhi salinitas dan pasang surut.",
+      "manfaat": "Mendukung habitat pesisir, membantu kestabilan garis pantai, dan menyediakan tempat hidup bagi berbagai organisme.",
+      "perawatan": "Lestarikan kondisi pasang surut dan substrat alami; penanaman kembali harus memakai jenis lokal yang sesuai.",
+      "keamanan": "Nama api-api dapat merujuk pada beberapa spesies; pastikan identifikasi sebelum pemanfaatan dan jangan mengambil dari habitat lindung."
+    },
+    "nipah": {
+      "ilmiah": "Nypa fruticans", "famili": "Arecaceae",
+      "alias": ["Nypa fruticans", "pohon nipah"], "herbal": false,
+      "ciri": "Palem dengan batang utama berada di bawah tanah dan daun majemuk panjang yang muncul berumpun.",
+      "habitat": "Muara, tepi sungai, dan rawa pasang surut tropis.",
+      "manfaat": "Daunnya digunakan untuk atap dan anyaman; bagian lain dimanfaatkan secara lokal sesuai praktik setempat.",
+      "perawatan": "Tumbuh pada habitat basah yang dipengaruhi pasang surut; pertahankan kondisi rawa dan muara.",
+      "keamanan": "Pemanfaatan harus memperhatikan kelestarian habitat mangrove dan aturan setempat."
+    },
+    "nangka": {
+      "ilmiah": "Artocarpus heterophyllus", "famili": "Moraceae",
+      "alias": ["Artocarpus heterophyllus", "pohon nangka"], "herbal": false,
+      "ciri": "Pohon tropis berdaun tunggal yang menghasilkan buah sangat besar pada batang atau cabang utama.",
+      "habitat": "Daerah tropis hangat dengan tanah berdrainase baik; banyak dibudidayakan di pekarangan dan kebun.",
+      "manfaat": "Daging buah matang dimakan, sedangkan buah muda digunakan dalam berbagai masakan.",
+      "perawatan": "Tanam di tempat cukup matahari dan ruang untuk tajuk; siram bibit dan jaga drainase tanah.",
+      "keamanan": "Getah dapat melekat dan mengiritasi sebagian orang; hindari buah jatuh dari pohon."
+    },
+    "singkong": {
+      "ilmiah": "Manihot esculenta", "famili": "Euphorbiaceae",
+      "alias": ["Manihot esculenta", "ketela pohon", "ubi kayu"], "herbal": false,
+      "ciri": "Perdu tropis dengan daun menjari dan akar membesar sebagai umbi penyimpan pati.",
+      "habitat": "Lahan tropis dengan tanah gembur dan drainase baik; relatif tahan periode kering setelah tumbuh.",
+      "manfaat": "Umbinya menjadi sumber karbohidrat dan bahan baku berbagai produk pangan maupun industri.",
+      "perawatan": "Tanam stek batang pada tanah gembur, kendalikan gulma, dan panen umbi setelah cukup umur.",
+      "keamanan": "Beberapa varietas mengandung senyawa sianogenik; kupas dan olah dengan benar sebelum dimakan, jangan konsumsi mentah."
+    },
+    "talas": {
+      "ilmiah": "Colocasia esculenta", "famili": "Araceae",
+      "alias": ["Colocasia esculenta", "keladi", "talas bogor"], "herbal": false,
+      "ciri": "Herba berdaun lebar berbentuk hati dengan tangkai panjang dan umbi kaya pati.",
+      "habitat": "Daerah tropis lembap, tumbuh baik pada tanah subur yang cukup basah.",
+      "manfaat": "Umbinya dimanfaatkan sebagai bahan pangan setelah dimasak.",
+      "perawatan": "Sediakan tanah lembap dan kaya bahan organik tanpa genangan yang merusak umbi; kendalikan gulma.",
+      "keamanan": "Umbi mentah mengandung kristal kalsium oksalat yang dapat menyebabkan iritasi; masak dengan benar sebelum dikonsumsi."
+    },
+    "ubi jalar": {
+      "ilmiah": "Ipomoea batatas", "famili": "Convolvulaceae",
+      "alias": ["Ipomoea batatas", "ketela rambat"], "herbal": false,
+      "ciri": "Tanaman merambat dengan batang menjalar dan akar membesar sebagai tempat penyimpanan makanan.",
+      "habitat": "Wilayah tropis dan subtropis hangat, pada tanah gembur dengan drainase baik.",
+      "manfaat": "Umbinya merupakan sumber karbohidrat dan serat; varietas berdaging oranye mengandung beta-karoten.",
+      "perawatan": "Tanam stek sulur di tanah gembur, beri cahaya matahari, dan jaga agar media tidak tergenang.",
+      "keamanan": "Umbi aman dikonsumsi setelah dimasak dan dicuci dengan baik."
+    },
+    "kakao": {
+      "ilmiah": "Theobroma cacao", "famili": "Malvaceae",
+      "alias": ["Theobroma cacao", "pohon kakao", "cokelat"], "herbal": false,
+      "ciri": "Pohon tropis yang bunganya tumbuh pada batang dan cabang tua, lalu menghasilkan buah berisi biji kakao.",
+      "habitat": "Tropis lembap, umumnya dibudidayakan dengan naungan dan curah hujan memadai.",
+      "manfaat": "Biji difermentasi dan diolah menjadi bahan baku cokelat serta produk pangan lainnya.",
+      "perawatan": "Berikan naungan untuk tanaman muda, jaga kelembapan dan drainase, pangkas teratur, serta kendalikan penyakit buah.",
+      "keamanan": "Biji kakao mengandung stimulan alami; produk cokelat dapat mengandung gula dan bahan tambahan."
+    },
+    "kopi arabika": {
+      "ilmiah": "Coffea arabica", "famili": "Rubiaceae",
+      "alias": ["Coffea arabica", "kopi arabika"], "herbal": false,
+      "ciri": "Perdu atau pohon kecil dengan daun berhadapan, bunga putih harum, dan buah kopi yang umumnya matang merah.",
+      "habitat": "Wilayah tropis dataran tinggi yang sejuk, lembap, dan memiliki drainase baik.",
+      "manfaat": "Bijinya diolah menjadi minuman kopi dan berbagai produk pangan.",
+      "perawatan": "Budidayakan pada lingkungan sejuk dengan naungan sebagian, tanah subur, dan pengendalian hama serta penyakit.",
+      "keamanan": "Minuman kopi mengandung kafeina; batasi konsumsi sesuai toleransi dan kondisi kesehatan."
+    },
+    "sagu": {
+      "ilmiah": "Metroxylon sagu", "famili": "Arecaceae",
+      "alias": ["Metroxylon sagu", "pohon sagu"], "herbal": false,
+      "ciri": "Palem tropis berbatang besar yang menyimpan pati di bagian dalam batang.",
+      "habitat": "Rawa air tawar dan lahan basah tropis, terutama di Indonesia bagian timur.",
+      "manfaat": "Pati batang diolah menjadi bahan pangan dan berbagai produk sagu.",
+      "perawatan": "Tumbuh di lahan basah; pengelolaan perlu mempertahankan fungsi rawa serta regenerasi tegakan.",
+      "keamanan": "Pati harus diekstrak dan diolah dengan benar sebelum dikonsumsi."
+    },
+    "kencur": {
+      "ilmiah": "Kaempferia galanga", "famili": "Zingiberaceae",
+      "alias": ["Kaempferia galanga", "cekur"], "herbal": true,
+      "ciri": "Herba pendek dengan daun lebar dekat permukaan tanah dan rimpang beraroma khas.",
+      "habitat": "Wilayah tropis lembap, tumbuh pada tanah gembur dan naungan ringan.",
+      "manfaat": "Rimpangnya digunakan sebagai bumbu masakan tradisional dan bahan jamu.",
+      "perawatan": "Tanam rimpang pada media gembur, siram secukupnya, dan hindari genangan.",
+      "keamanan": "Gunakan sebagai pangan dalam jumlah wajar; penggunaan untuk mengobati penyakit perlu dikonsultasikan dengan tenaga kesehatan."
+    },
+    "pala": {
+      "ilmiah": "Myristica fragrans", "famili": "Myristicaceae",
+      "alias": ["Myristica fragrans", "pohon pala"], "herbal": false,
+      "ciri": "Pohon tropis hijau sepanjang tahun yang menghasilkan buah dengan biji pala dan selaput biji merah bernama fuli.",
+      "habitat": "Tropis lembap; secara historis banyak dibudidayakan di Kepulauan Maluku.",
+      "manfaat": "Biji dan fuli digunakan sebagai rempah dalam masakan dan produk pangan.",
+      "perawatan": "Tanam di tanah subur berdrainase baik, lingkungan lembap, dan lokasi terlindung saat muda.",
+      "keamanan": "Gunakan sebagai rempah dalam jumlah pangan biasa; konsumsi pala berlebihan dapat membahayakan kesehatan."
+    },
+    "lada": {
+      "ilmiah": "Piper nigrum", "famili": "Piperaceae",
+      "alias": ["Piper nigrum", "merica", "lada hitam", "lada putih"], "herbal": false,
+      "ciri": "Tanaman merambat berkayu dengan daun berbentuk hati dan buah kecil yang tersusun dalam tandan.",
+      "habitat": "Tropis hangat dan lembap; tumbuh baik dengan penopang serta tanah berdrainase baik.",
+      "manfaat": "Buah kering digunakan sebagai rempah dan mengandung senyawa piperin.",
+      "perawatan": "Sediakan tiang rambatan, naungan sebagian, tanah lembap tetapi tidak tergenang, dan pangkas seperlunya.",
+      "keamanan": "Aman sebagai rempah dalam jumlah pangan; hindari penggunaan ekstrak pekat tanpa arahan ahli."
+    },
+    "serai dapur": {
+      "ilmiah": "Cymbopogon citratus", "famili": "Poaceae",
+      "alias": ["Cymbopogon citratus", "serai", "sereh", "serai makan"], "herbal": false,
+      "ciri": "Rumput tropis berumpun dengan daun panjang dan aroma sitrus.",
+      "habitat": "Daerah tropis hangat, tumbuh baik pada tempat bercahaya dan tanah berdrainase baik.",
+      "manfaat": "Batang dan daunnya digunakan sebagai bumbu; daunnya juga menjadi sumber minyak atsiri.",
+      "perawatan": "Tanam rumpun atau anakan di tempat cukup matahari, siram saat kering, dan pangkas daun tua.",
+      "keamanan": "Minyak atsiri pekat dapat mengiritasi kulit; penggunaan sebagai pangan berbeda dari penggunaan minyak pekat."
+    },
+    "pandan wangi": {
+      "ilmiah": "Pandanus amaryllifolius", "famili": "Pandanaceae",
+      "alias": ["Pandanus amaryllifolius", "pandan", "pandan wangi"], "herbal": false,
+      "ciri": "Tumbuhan berumpun dengan daun panjang sempit yang mengeluarkan aroma khas.",
+      "habitat": "Daerah tropis lembap, biasa ditanam di pekarangan dan tempat dengan tanah cukup lembap.",
+      "manfaat": "Daunnya digunakan untuk memberi aroma dan warna pada makanan.",
+      "perawatan": "Tanam pada tanah subur dan lembap dengan cahaya matahari atau naungan ringan; perbanyak melalui anakan.",
+      "keamanan": "Gunakan daun yang teridentifikasi dan bersih untuk pangan."
+    },
+    "lidah buaya": {
+      "ilmiah": "Aloe vera", "famili": "Asphodelaceae",
+      "alias": ["Aloe vera", "aloe"], "herbal": false,
+      "ciri": "Tumbuhan sukulen dengan daun tebal berdaging yang menyimpan gel dan tepi bergerigi.",
+      "habitat": "Lingkungan tropis hangat dengan cahaya terang dan media berdrainase baik.",
+      "manfaat": "Gel digunakan dalam produk kosmetik dan perawatan kulit.",
+      "perawatan": "Gunakan media porous, cahaya terang, dan siram setelah media mengering; hindari genangan.",
+      "keamanan": "Getah kuning dekat kulit daun berbeda dari gel; konsumsi bagian tanaman dapat berisiko dan tidak dianjurkan tanpa arahan ahli."
+    },
+    "jambu biji": {
+      "ilmiah": "Psidium guajava", "famili": "Myrtaceae",
+      "alias": ["Psidium guajava", "jambu batu", "jambu klutuk"], "herbal": false,
+      "ciri": "Pohon kecil atau perdu dengan daun berurat jelas dan buah berdaging dengan banyak biji.",
+      "habitat": "Daerah tropis, mudah tumbuh di kebun dan pekarangan pada tanah berdrainase baik.",
+      "manfaat": "Buah menjadi sumber vitamin C dan serat serta dapat dimakan segar atau diolah.",
+      "perawatan": "Tanam di tempat bercahaya, siram bibit secara teratur, pangkas cabang, dan lindungi buah dari hama.",
+      "keamanan": "Cuci buah sebelum dikonsumsi; perhatikan alergi individu."
+    },
+    "sirsak": {
+      "ilmiah": "Annona muricata", "famili": "Annonaceae",
+      "alias": ["Annona muricata", "nangka belanda"], "herbal": false,
+      "ciri": "Pohon buah tropis dengan daun tunggal dan buah berkulit hijau berduri lunak serta daging putih.",
+      "habitat": "Tropis hangat dan lembap, dibudidayakan di kebun dan pekarangan.",
+      "manfaat": "Daging buah dikonsumsi langsung atau diolah menjadi minuman dan makanan.",
+      "perawatan": "Tanam pada tanah subur berdrainase baik, beri cahaya cukup, dan siram teratur saat tanaman muda.",
+      "keamanan": "Konsumsi daging buah matang; biji tidak untuk dimakan."
+    },
+    "sukun": {
+      "ilmiah": "Artocarpus altilis", "famili": "Moraceae",
+      "alias": ["Artocarpus altilis", "pohon sukun"], "herbal": false,
+      "ciri": "Pohon tropis berdaun besar berlekuk dan menghasilkan buah majemuk kaya pati.",
+      "habitat": "Wilayah tropis hangat dan lembap, umumnya dibudidayakan di kebun dan pekarangan.",
+      "manfaat": "Buahnya menjadi bahan pangan dan dapat direbus, dikukus, atau digoreng.",
+      "perawatan": "Sediakan ruang untuk tajuk, tanah berdrainase baik, dan air cukup terutama saat tanaman muda.",
+      "keamanan": "Buah sebaiknya dimasak sebelum dikonsumsi."
+    },
+    "petai": {
+      "ilmiah": "Parkia speciosa", "famili": "Fabaceae",
+      "alias": ["Parkia speciosa", "pete"], "herbal": false,
+      "ciri": "Pohon tropis dengan daun majemuk dan polong panjang berisi biji beraroma kuat.",
+      "habitat": "Kawasan tropis Asia Tenggara, tumbuh di hutan dan kebun.",
+      "manfaat": "Bijinya digunakan sebagai bahan pangan dan bumbu.",
+      "perawatan": "Tanam pada lokasi tropis dengan ruang bagi pohon dewasa dan tanah berdrainase baik.",
+      "keamanan": "Konsumsi biji sebagai pangan yang diolah dengan baik; aroma biji dapat bertahan setelah dimakan."
+    },
+    "melinjo": {
+      "ilmiah": "Gnetum gnemon", "famili": "Gnetaceae",
+      "alias": ["Gnetum gnemon", "belinjo"], "herbal": false,
+      "ciri": "Pohon tropis berdaun tunggal dengan biji yang diselubungi lapisan berdaging.",
+      "habitat": "Asia Tenggara, tumbuh di hutan tropis dan juga dibudidayakan di pekarangan.",
+      "manfaat": "Daun dan bijinya dimanfaatkan sebagai bahan pangan; bijinya diolah menjadi emping.",
+      "perawatan": "Tanam di tanah subur berdrainase baik dengan ruang yang cukup untuk pertumbuhan pohon.",
+      "keamanan": "Olah biji dan daun sebagai bahan pangan secara benar; konsumsi sewajarnya."
+    },
+    "bambu": {
+      "ilmiah": "Bambusa spp.", "famili": "Poaceae",
+      "alias": ["Bambusa spp.", "pohon bambu", "rebung"], "herbal": false,
+      "ciri": "Kelompok rumput berkayu dengan batang beruas dan pertumbuhan berumpun atau menjalar bergantung jenis.",
+      "habitat": "Beragam habitat tropis, dari hutan hingga kebun, sesuai jenisnya.",
+      "manfaat": "Batang digunakan untuk bangunan dan kerajinan; rebung beberapa jenis dimanfaatkan sebagai pangan.",
+      "perawatan": "Pilih jenis yang sesuai lokasi dan kendalikan perluasan rumpun; sediakan ruang tumbuh yang cukup.",
+      "keamanan": "Rebung harus berasal dari jenis pangan dan diolah dengan benar; batang dapat memiliki tepi tajam."
+    },
+    "beringin": {
+      "ilmiah": "Ficus benjamina", "famili": "Moraceae",
+      "alias": ["Ficus benjamina", "beringin korea", "weeping fig"], "herbal": false,
+      "ciri": "Pohon bertajuk rimbun dengan cabang lentur dan akar udara yang dapat tumbuh menggantung; menghasilkan buah kecil.",
+      "habitat": "Wilayah tropis, tumbuh di hutan dan sering ditanam sebagai peneduh.",
+      "manfaat": "Tajuknya memberi naungan dan buahnya menjadi sumber makanan bagi berbagai satwa.",
+      "perawatan": "Sediakan ruang luas untuk tajuk dan akar; tanaman pot memerlukan cahaya terang tidak langsung dan penyiraman teratur.",
+      "keamanan": "Akar pohon dewasa dapat mengganggu struktur dekatnya; getah dapat mengiritasi sebagian orang."
+    },
+    "monstera": {
+      "ilmiah": "Monstera deliciosa", "famili": "Araceae",
+      "alias": ["Monstera deliciosa", "janda bolong"], "herbal": false,
+      "ciri": "Tumbuhan merambat dengan daun besar yang memiliki lubang dan belahan saat dewasa.",
+      "habitat": "Hutan tropis lembap, memanjat pohon dan tumbuh dengan cahaya tersaring.",
+      "manfaat": "Banyak dibudidayakan sebagai tanaman hias.",
+      "perawatan": "Berikan cahaya terang tidak langsung, media porous, penopang rambat, dan penyiraman saat lapisan atas media mengering.",
+      "keamanan": "Bagian tanaman mentah mengandung kristal kalsium oksalat yang dapat mengiritasi mulut; jauhkan dari hewan peliharaan dan anak kecil."
+    },
+    "anthurium": {
+      "ilmiah": "Anthurium andraeanum", "famili": "Araceae",
+      "alias": ["Anthurium andraeanum", "bunga anthurium"], "herbal": false,
+      "ciri": "Tanaman hias dengan tongkol bunga dan seludang berwarna mencolok serta daun hijau mengilap.",
+      "habitat": "Lingkungan tropis hangat dan lembap dengan cahaya tidak langsung.",
+      "manfaat": "Dibudidayakan sebagai tanaman hias.",
+      "perawatan": "Gunakan media porous, kelembapan cukup, dan cahaya terang tidak langsung; hindari genangan.",
+      "keamanan": "Mengandung kristal kalsium oksalat yang dapat mengiritasi jika tertelan atau terkena jaringan sensitif."
+    },
+    "aglaonema": {
+      "ilmiah": "Aglaonema commutatum", "famili": "Araceae",
+      "alias": ["Aglaonema commutatum", "sri rejeki"], "herbal": false,
+      "ciri": "Tanaman hias daun dengan corak dan variasi warna pada helaian daunnya.",
+      "habitat": "Lantai hutan tropis yang teduh dan lembap; dibudidayakan di tempat teduh.",
+      "manfaat": "Ditanam sebagai tanaman hias karena warna serta pola daunnya.",
+      "perawatan": "Tempatkan di cahaya tidak langsung, jaga kelembapan media tanpa membuatnya tergenang.",
+      "keamanan": "Mengandung kristal kalsium oksalat; jauhkan dari anak kecil dan hewan peliharaan."
+    },
+    "hoya": {
+      "ilmiah": "Hoya carnosa", "famili": "Apocynaceae",
+      "alias": ["Hoya carnosa", "bunga lilin"], "herbal": false,
+      "ciri": "Tumbuhan merambat dengan daun tebal dan bunga kecil berbentuk bintang yang tumbuh berkelompok.",
+      "habitat": "Lingkungan tropis hangat; banyak jenis tumbuh sebagai epifit atau pemanjat.",
+      "manfaat": "Ditanam sebagai tanaman hias karena bentuk daun dan bunganya.",
+      "perawatan": "Berikan cahaya terang tidak langsung, media berdrainase baik, dan siram setelah media mengering sebagian.",
+      "keamanan": "Jangan mengonsumsi bagian tanaman; getah dapat mengiritasi sebagian orang."
+    },
+    "cendana": {
+      "ilmiah": "Santalum album", "famili": "Santalaceae",
+      "alias": ["Santalum album", "kayu cendana"], "herbal": false,
+      "ciri": "Pohon kecil hingga sedang yang kayunya menghasilkan aroma khas; akarnya mengambil sebagian nutrisi dari tumbuhan inang.",
+      "habitat": "Daerah tropis kering musiman, termasuk Nusa Tenggara; persebaran alami dan budidaya bergantung kondisi setempat.",
+      "manfaat": "Kayu dan minyaknya digunakan dalam industri wewangian.",
+      "perawatan": "Budidaya memerlukan tanaman inang yang sesuai; lindungi populasi dan gunakan sumber bibit legal.",
+      "keamanan": "Pemanfaatan perlu memperhatikan kelestarian populasi dan aturan perdagangan."
+    },
+    "merbau": {
+      "ilmiah": "Intsia bijuga", "famili": "Fabaceae",
+      "alias": ["Intsia bijuga", "kayu merbau"], "herbal": false,
+      "ciri": "Pohon hutan tropis berukuran besar dengan kayu keras dan tahan lama.",
+      "habitat": "Hutan tropis Asia Tenggara dan Pasifik, termasuk kawasan Indonesia.",
+      "manfaat": "Kayunya digunakan untuk konstruksi dan furnitur; pohon berperan dalam struktur dan penyimpanan karbon hutan.",
+      "perawatan": "Utamakan perlindungan habitat dan regenerasi hutan; gunakan kayu dari sumber legal dan lestari.",
+      "keamanan": "Penebangan berlebihan dapat mengancam populasi; hindari produk kayu tanpa asal-usul yang jelas."
+    },
+    "jati": {
+      "ilmiah": "Tectona grandis", "famili": "Lamiaceae",
+      "alias": ["Tectona grandis", "pohon jati", "kayu jati"], "herbal": false,
+      "ciri": "Pohon penghasil kayu dengan daun lebar dan batang yang dapat tumbuh besar.",
+      "habitat": "Daerah tropis dengan musim kering yang nyata; banyak dibudidayakan di hutan tanaman.",
+      "manfaat": "Kayunya bernilai ekonomi tinggi dan digunakan untuk furnitur serta konstruksi.",
+      "perawatan": "Budidayakan di tanah berdrainase baik dengan ruang tumbuh dan cahaya matahari memadai.",
+      "keamanan": "Pastikan pemanfaatan kayu mengikuti ketentuan legalitas dan pengelolaan hutan."
+    },
+    "vanili": {
+      "ilmiah": "Vanilla planifolia", "famili": "Orchidaceae",
+      "alias": ["Vanilla planifolia", "vanila"], "herbal": false,
+      "ciri": "Anggrek merambat dengan batang sukulen; buahnya berbentuk polong dan menghasilkan aroma setelah diolah.",
+      "habitat": "Tropis hangat dan lembap, umumnya dibudidayakan dengan penopang dan naungan.",
+      "manfaat": "Polong yang telah melalui pengolahan digunakan sebagai pemberi aroma makanan.",
+      "perawatan": "Sediakan penopang, naungan sebagian, kelembapan, dan penyerbukan terkelola pada budidaya.",
+      "keamanan": "Gunakan produk vanili yang telah diolah sebagai bahan pangan; hindari konsumsi bagian tanaman mentah."
+    },
+    "pedada": {
+      "ilmiah": "Sonneratia alba", "famili": "Lythraceae",
+      "alias": ["Sonneratia alba", "pidada", "bogem"], "herbal": false,
+      "ciri": "Pohon mangrove dengan akar napas berbentuk kerucut yang muncul dari substrat berlumpur.",
+      "habitat": "Pesisir dan muara tropis, terutama kawasan mangrove yang dipengaruhi pasang surut.",
+      "manfaat": "Mendukung pembentukan habitat pesisir dan menyediakan sumber makanan bagi sejumlah organisme.",
+      "perawatan": "Jaga kondisi pasang surut, kualitas air, dan habitat mangrove alami.",
+      "keamanan": "Jangan merusak atau mengambil tumbuhan dari kawasan konservasi; patuhi aturan lokal."
+    },
+    "keruing": {
+      "ilmiah": "Dipterocarpus spp.", "famili": "Dipterocarpaceae",
+      "alias": ["Dipterocarpus spp.", "pohon keruing"], "herbal": false,
+      "ciri": "Kelompok pohon hutan tropis berukuran besar yang beberapa spesiesnya menghasilkan resin.",
+      "habitat": "Hutan hujan tropis Asia Tenggara, tumbuh sebagai bagian dari struktur kanopi hutan.",
+      "manfaat": "Kayu dan resin dimanfaatkan pada spesies tertentu; pohonnya membantu membentuk struktur dan menyimpan karbon hutan.",
+      "perawatan": "Pelestarian habitat dan regenerasi alami lebih sesuai daripada penanaman di pekarangan.",
+      "keamanan": "Nama keruing mencakup banyak spesies; pemanenan kayu dan resin harus mengikuti aturan legal dan lestari."
+    },
+    "keladi raksasa": {
+      "ilmiah": "Alocasia macrorrhizos", "famili": "Araceae",
+      "alias": ["Alocasia macrorrhizos", "talas raksasa"], "herbal": false,
+      "ciri": "Tumbuhan tropis lembap dengan daun sangat besar berbentuk perisai pada tangkai panjang.",
+      "habitat": "Hutan dan kawasan tropis lembap; beberapa varietas dibudidayakan sebagai tanaman hias.",
+      "manfaat": "Banyak ditanam sebagai tanaman hias karena ukuran dan bentuk daunnya.",
+      "perawatan": "Sediakan kelembapan, media subur berdrainase baik, dan cahaya terang tidak langsung.",
+      "keamanan": "Jaringan mentah mengandung kristal kalsium oksalat yang dapat menyebabkan iritasi; jangan dikonsumsi tanpa pengolahan yang tepat."
+    },
+    "putri malu": {
+      "ilmiah": "Mimosa pudica", "famili": "Fabaceae",
+      "alias": ["Mimosa pudica", "si kejut"], "herbal": false,
+      "ciri": "Tumbuhan kecil yang anak daunnya menutup ketika disentuh atau terguncang akibat perubahan tekanan air pada sel khusus.",
+      "habitat": "Daerah tropis terbuka, tepi jalan, dan lahan terganggu dengan cahaya matahari.",
+      "manfaat": "Menjadi contoh menarik untuk pembelajaran respons gerak tumbuhan.",
+      "perawatan": "Tumbuh pada tanah berdrainase baik dan tempat bercahaya; kendalikan penyebaran di area budidaya.",
+      "keamanan": "Duri kecil pada batang dapat melukai; hindari mengonsumsi tanaman tanpa informasi keamanan yang memadai."
+    },
+    "gamal": {
+      "ilmiah": "Gliricidia sepium", "famili": "Fabaceae",
+      "alias": ["Gliricidia sepium", "kayu glirisidia"], "herbal": false,
+      "ciri": "Pohon kecil berdaun majemuk yang mudah dipangkas dan dapat diperbanyak dengan stek.",
+      "habitat": "Wilayah tropis, umum ditanam sebagai pagar hidup dan pohon penaung.",
+      "manfaat": "Digunakan sebagai tanaman pagar, sumber bahan organik, dan pakan ternak dalam sistem pertanian tertentu.",
+      "perawatan": "Pangkas untuk membentuk pagar dan kelola biomassa sesuai kebutuhan lahan.",
+      "keamanan": "Kelayakan sebagai pakan bergantung dosis dan ternak; jangan diberikan tanpa panduan peternakan yang sesuai."
+    },
+    "lamtoro": {
+      "ilmiah": "Leucaena leucocephala", "famili": "Fabaceae",
+      "alias": ["Leucaena leucocephala", "petai cina"], "herbal": false,
+      "ciri": "Pohon kecil cepat tumbuh dengan daun majemuk halus dan polong berisi biji.",
+      "habitat": "Daerah tropis, dibudidayakan sebagai pagar, penutup tanah, dan pakan ternak.",
+      "manfaat": "Dimanfaatkan sebagai pakan ternak dan tanaman penutup tanah.",
+      "perawatan": "Pangkas dan kendalikan penyebaran biji, terutama di habitat alami yang rentan.",
+      "keamanan": "Dapat menjadi invasif pada kondisi tertentu; penggunaannya sebagai pakan perlu mengikuti panduan karena kandungan mimosin."
+    },
+    "mimba": {
+      "ilmiah": "Azadirachta indica", "famili": "Meliaceae",
+      "alias": ["Azadirachta indica", "neem"], "herbal": false,
+      "ciri": "Pohon tropis dengan daun majemuk menyirip dan buah kecil berwarna kekuningan saat matang.",
+      "habitat": "Daerah tropis hangat; tumbuh baik pada cahaya matahari dan relatif tahan kondisi kering setelah mapan.",
+      "manfaat": "Mengandung senyawa bioaktif yang diteliti dan digunakan pada produk pengendalian hama tertentu.",
+      "perawatan": "Tanam di lokasi bercahaya dengan tanah berdrainase baik; beri ruang untuk tajuk dewasa.",
+      "keamanan": "Ekstrak harus digunakan sesuai label dan aturan; jangan menganggapnya aman untuk dikonsumsi atau digunakan tanpa panduan."
+    }
+  }
+}

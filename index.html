@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tumbuhan Tropis Saja</title>
+<style>
+  :root { color-scheme:light dark; --bg:#f2f6ef; --card:#fff; --ink:#1d2a1f; --muted:#5b6b5e; --green:#287447; --line:#d9e2d6; --user:#e3f1e7; --admin:#fff3d6; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#141a15; --card:#1c241e; --ink:#e6efe7; --muted:#9db0a1; --green:#5fbf84; --line:#2c3a2f; --user:#243d2d; --admin:#3d3520; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background-color:#14251a; background-image:linear-gradient(rgba(8,20,12,.48),rgba(8,20,12,.48)),url("background.jpg"); background-position:center; background-repeat:no-repeat; background-size:cover; background-attachment:fixed; color:var(--ink); font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif; }
+  main { width:min(100%,760px); margin:0 auto; min-height:100vh; display:flex; flex-direction:column; padding:20px 16px; gap:12px; }
+  header { padding:8px 2px 12px; color:#fff; text-align:center; text-shadow:0 2px 8px #000; }
+  h1 { display:flex; align-items:center; justify-content:center; gap:10px; font-family:Georgia,"Times New Roman",serif; font-size:clamp(22px,5vw,38px); font-weight:700; letter-spacing:.04em; line-height:1.15; margin:0; }
+  .logo { width:clamp(52px,9vw,68px); height:clamp(52px,9vw,68px); flex:none; object-fit:contain; filter:drop-shadow(0 2px 3px rgba(0,0,0,.35)); }
+  p.sub { margin:8px 0 0; color:#e5eee7; font-size:14px; }
+  #log { position:relative; isolation:isolate; flex:1; background:rgba(244,249,239,.82); color:#1d2a1f; border:1px solid rgba(255,255,255,.72); border-radius:16px; padding:16px; overflow-y:auto; min-height:360px; max-height:65vh; display:flex; flex-direction:column; gap:10px; box-shadow:0 8px 28px #18351c20; backdrop-filter:blur(5px); -webkit-backdrop-filter:blur(5px); }
+  #log::before { content:""; position:absolute; z-index:0; inset:0; border-radius:inherit; pointer-events:none; background-image:linear-gradient(90deg,rgba(255,255,255,.04),rgba(255,255,255,.2) 32%,rgba(255,255,255,.22) 68%,rgba(255,255,255,.04)),url("chat-decoration.svg"); background-repeat:no-repeat; background-position:center,right center; background-size:100% 100%,100% 100%; opacity:.52; }
+  .msg { position:relative; z-index:1; max-width:85%; padding:8px 12px; border-radius:12px; white-space:pre-wrap; word-wrap:break-word; }
+  .bot { background:rgba(225,241,229,.9); color:#1d2a1f; border:1px solid rgba(190,218,197,.9); align-self:flex-start; }
+  .user { background:rgba(200,230,206,.92); color:#1d2a1f; align-self:flex-end; }
+  .admin { background:rgba(220,237,200,.92); color:#1d2a1f; align-self:flex-start; }
+  #chips { display:flex; flex-wrap:wrap; gap:6px; }
+  #chips button { background:var(--card); color:var(--green); border:1px solid var(--line); border-radius:999px; padding:6px 12px; cursor:pointer; font-size:14px; transition:background .15s,border-color .15s; }
+  #chips button:hover { background:var(--user); border-color:var(--green); }
+  form { display:flex; gap:8px; }
+  input { min-width:0; flex:1; padding:11px 13px; border-radius:10px; border:1px solid var(--line); background:var(--card); color:var(--ink); font:inherit; }
+  form button { padding:10px 18px; border:0; border-radius:10px; background:var(--green); color:#fff; font:inherit; font-weight:600; cursor:pointer; }
+  button:disabled { opacity:.6; cursor:default; }
+  button:focus-visible,input:focus-visible { outline:3px solid color-mix(in srgb,var(--green) 35%,transparent); outline-offset:2px; }
+  #status { min-height:1.25em; margin:0 2px; color:#fff; text-shadow:0 1px 3px #000; font-size:13px; }
+  @media (max-width:480px) { main { padding:12px; } #log { min-height:45vh; max-height:none; padding:12px; } #log::before { opacity:.38; } .msg { max-width:92%; } }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1><img class="logo" src="logo.png" alt="">Tumbuhan Tropis Saja</h1>
+  </header>
+  <section id="log" role="log" aria-live="polite" aria-relevant="additions" aria-label="Percakapan"></section>
+  <div id="chips">
+    <button type="button">Apa manfaat jahe?</button>
+    <button type="button">Cara merawat anggrek bulan</button>
+    <button type="button">Bandingkan jahe dan kunyit</button>
+    <button type="button">Daun pisang menguning</button>
+    <button type="button">Daftar tumbuhan</button>
+  </div>
+  <p id="status" role="status" aria-live="polite"></p>
+  <form id="f" autocomplete="off">
+    <input id="q" maxlength="500" placeholder="Tanya tentang tumbuhan tropis..." aria-label="Pesan" required>
+    <button id="send">Kirim</button>
+  </form>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
